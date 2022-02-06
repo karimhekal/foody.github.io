@@ -1,0 +1,6 @@
+.modalContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: 'rgb(2,2,2,0.3)';
+}

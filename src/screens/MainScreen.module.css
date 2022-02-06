@@ -1,0 +1,36 @@
+.list {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    flex-direction: column;
+    background-color: rgb(212, 227, 255) ;
+    border-radius: 20px;
+    padding: 10px;
+    align-items: center;
+    flex:auto;
+    margin:20px;
+    justify-content: space-around;
+    border-width: 0.5px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+@media (max-width:740px) and (min-width:0px) {
+    .list{
+        grid-template-columns: none;
+        width:90%;
+        display: flex;
+
+
+    }
+}
+@media (max-width:1040px) and (min-width:741px) {
+    .list{
+        grid-template-columns: auto auto;
+    }
+}
+.listContainer {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding-top: 30px;
+}

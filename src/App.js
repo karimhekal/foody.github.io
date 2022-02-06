@@ -1,24 +1,35 @@
-import logo from './logo.svg';
 import './App.css';
+import { Redirect, Route, Switch } from 'react-router-dom';
+import MainScreen from './screens/MainScreen';
+import CartModal from './components/CartModal';
+
+import Layout from './components/Layout';
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
+// Your web app's Firebase configuration
+
+// Initialize Firebase
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Layout>
+      <div>
+        <Switch>
+          <Route path='/' exact>
+            <Redirect to='/Main' />
+          </Route>
+          <Route path='/Main' exact>
+            <MainScreen />
+          </Route>
+          <Route path='/Cart'>
+            <CartModal />
+          </Route>
+          <Route path='*' >
+            <p1>not found</p1>
+          </Route>
+        </Switch>
+      </div>
+    </Layout>
   );
 }
 
