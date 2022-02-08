@@ -11,6 +11,8 @@ import Layout from './components/Layout';
 // Initialize Firebase
 
 function App() {
+  document.body.style = 'background: var(--color1);';
+
   return (
     <Layout>
       <div>

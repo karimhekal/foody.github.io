@@ -1,14 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { db } from "../api/firebase";
 import { collection, getDocs } from 'firebase/firestore'
-// import { CATEGORIES } from "../Data/DATA";
-import { barActions } from "./store";
-// const bdan = CATEGORIES.map(element => element);
+import  { barActions } from "./store";
 
 const initialCategoryBarState = {
-    hello: 'eeee',
     categories: [],
-    selectedCategory: 'salads'
+    selectedCategory: ''
 }
 export const categoryBarSlice = createSlice({
     name: 'categoryBar',
@@ -29,21 +26,25 @@ export const categoryBarSlice = createSlice({
 
 export const getCategories = () => {
     return async (dispatch) => {
-        const allData = [];
         const getAll = async () => {
             const querySnapshot = await getDocs(collection(db, "categories"));
-            // console.log(querySnapshot)
+            let selectedCategory = ''
             querySnapshot.forEach((doc) => {
-                // doc.data() is never undefined for query doc snapshots
-                // console.log(doc.id, " => ", doc.data());
-                allData.push(doc.data().name);
                 dispatch(barActions.addCategory({ id: doc.data().id, name: doc.data().name }))
+                if (doc.data().selected) {
+                    // console.log(doc.data().id)
+                    selectedCategory = doc.data().id
+
+                }
             });
-            dispatch(barActions.selectCategory('offers'))
+            dispatch(barActions.selectCategory(selectedCategory))
         }
+        try {
+            await getAll().then(() => {
 
-        getAll();
+            });
+        } catch (e) {
 
-
+        }
     }
 }

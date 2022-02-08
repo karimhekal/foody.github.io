@@ -2,12 +2,12 @@
     width: 100%;
     height: fit-content;
     display: flex;
-    background-color: rgb(134, 154, 197);
+    background-color: var(--color4);
     justify-content: flex-start;
     padding: 15px;
     align-items: center;
     overflow-x: auto;
-    background: linear-gradient(to right, rgb(96, 111, 143), rgb(134, 154, 197), rgb(134, 154, 197), rgb(134, 154, 197), rgb(134, 154, 197), rgb(134, 154, 197), rgb(134, 154, 197), rgb(96, 111, 143));
+    /* background: linear-gradient(to right, rgb(96, 111, 143), rgb(134, 154, 197), rgb(134, 154, 197), rgb(134, 154, 197), rgb(134, 154, 197), rgb(134, 154, 197), rgb(134, 154, 197), rgb(96, 111, 143)); */
 }
 
 .nav {
@@ -23,7 +23,7 @@
     overflow-x: auto;
     list-style: circle;
     -ms-overflow-style: none;
-    background-color: #044599cc;
+    background-color: var(--color1);
     border-top-color: black;
     justify-content: flex-start;
     padding: 15px;

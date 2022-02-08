@@ -1,0 +1,23 @@
+.barCategoryButton {
+    display: flex;
+    width: fit-content;
+    height: fit-content;
+    position: relative;
+    border-radius: 25px;
+    justify-content: center;
+    padding: 2px;
+    align-items: center;
+    border-width: 0;
+    margin-right: 10px;
+    /* background: linear-gradient(45deg, #a6a826, #abff0e, #ffa938,#ff2323); */
+    
+}
+
+/* .barCategoryButton::before {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    z-index: -1;
+    border-radius: 25px;
+    background: linear-gradient(45deg, #ff4262, #ffd70e, #ff38ac);
+} */

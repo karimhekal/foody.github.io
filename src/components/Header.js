@@ -1,4 +1,5 @@
 import { NavLink } from 'react-router-dom';
+import { Colors } from '../constants/colors';
 import classes from './Header.module.css'
 const Header = () => {
     return (
@@ -6,7 +7,7 @@ const Header = () => {
             <nav>
                 <ul>
                     <li>
-                        <div style={{color:'white',fontSize:24,fontWeight:'bold'}} color='white' replace to='/Main'>foody</div>
+                        <h1 style={{color:Colors.color3,fontSize:32,fontWeight:'bold'}}  replace to='/Main'>foody</h1>
                     </li>
 
                     <li>

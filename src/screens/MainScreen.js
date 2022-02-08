@@ -1,53 +1,75 @@
-import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import MealItem from '../components/MealItem';
-import { MEALS } from '../Data/DATA';
 import classes from './MainScreen.module.css'
+import { storage } from '../api/firebase';
+import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
+import { Colors } from '../constants/colors';
+import { barActions, UIActions } from '../store/store';
+import { getMeals } from '../store/meals-slice';
 const MainScreen = () => {
-
     const selectedCategory = useSelector(state => state.bar.selectedCategory)
+    const isLoading = useSelector(state => state.ui.isLoading)
+    const dispatch = useDispatch()
     let content;
+    const meals = useSelector(state => state.meals.meals)
+    let resultToReturn = true;
+    resultToReturn = meals.map((element) => { return element })
 
-    let resultToReturn = false;
-    resultToReturn = MEALS.filter((element, index) => {
-
-        if (element.category === selectedCategory && !Array.isArray(element.category)) {
-            return element
-        }
-        else if (Array.isArray(element.category)) {
-            console.log('arraaaaay');
-        }
+    useEffect(() => {
+        dispatch(getMeals(selectedCategory))
+        dispatch(barActions.selectCategory(selectedCategory))
+    }, [selectedCategory, barActions.selectCategory, dispatch, getMeals])
 
 
-    });
     if (resultToReturn.length > 0) {
-        content = resultToReturn.map((element) => <MealItem key={element.id} name={element.name} description={element.description} price={element.price} />)
+        content = resultToReturn.map((element, index) =>
+            <MealItem
+                image={element.image}
+                key={element.id}
+                id={element.id}
+                name={element.name}
+                quantity={element.quantity}
+                description={element.description}
+                price={element.price}
+            />)
     }
+
     else {
-        content = <div>We're sorry, There are no meals available for this category.</div>
+        content = <div>Loading...</div>
+
+    }
+
+
+    function onInputChange(e) {
+        const file = e.target.files[0]
+        uploadFiles(file)
+    }
+    const [progress, setProgress] = useState(0)
+    function uploadFiles(file) {
+        if (!file) {
+            return
+        }
+        const storageRef = ref(storage, file.name)
+        const uploadTask = uploadBytesResumable(storageRef, file)
+        uploadTask.on("state_changed", (snapshot) => {
+            const prog = Math.round((snapshot.bytesTransferred / snapshot.totalBytes) * 100)
+            setProgress(prog)
+        }, (error) => console.log(error),
+            () => getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                console.log("url : " + url)
+            }))
     }
     return (
-        <div className={classes.listContainer}>
+        <div className={classes.listContainer} style={{ backgroundColor: Colors.color1 }}>
             <div className={classes.list}>
-
+                {/* <input type={'file'} onChange={onInputChange} />
+                <h1>Uplaoded {progress}%</h1> */}
                 {
-                    content
+                    isLoading && content
                 }
             </div>
         </div>
     );
 }
 export default MainScreen;
-
-// {
-//     // let obj = CATEGORIES.find(o => o.id === '1');
-//     // console.log(element.category);
-//     if ( element.category==='2')
-//     {
-//     // console.log(obj.id)
-//         return <MealItem key={element.id} name={element.name} description={element.description} price={element.price} />
-//     }
-//     else {
-//         return <div>Sorry no meals found</div>
-//     }
-//     // console.log(obj)
-// }

@@ -1,7 +1,7 @@
 import { initializeApp } from "firebase/app";
-
+import * as firebase from 'firebase/app'
+import { getStorage } from 'firebase/storage';  // <----
 import { getFirestore, collection, getDocs } from 'firebase/firestore';
-
 export const firebaseConfig = {
     apiKey: "AIzaSyAL78UGSHR5MDMSmxFG2teA5Xdo2_jk5Rs",
     authDomain: "authentication-50462.firebaseapp.com",
@@ -12,18 +12,6 @@ export const firebaseConfig = {
     appId: "1:415779728307:web:e3dec1e905849065"
 };
 
-const app = initializeApp(firebaseConfig);
+export const app = firebase.initializeApp(firebaseConfig);
 export const db = getFirestore(app);
-const allData=[];
-const getAll = async () => {
-    const querySnapshot = await getDocs(collection(db, "categories"));
-    // console.log(querySnapshot)
-    querySnapshot.forEach((doc) => {
-        // doc.data() is never undefined for query doc snapshots
-        // console.log(doc.id, " => ", doc.data());
-        allData.push(doc.data().name);
-    });
-}
-getAll();
-
-export const categories = allData;
+export const storage = getStorage(app)

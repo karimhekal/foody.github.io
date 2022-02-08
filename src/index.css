@@ -4,14 +4,20 @@
   box-sizing: border-box;
   scroll-behavior: smooth;
 }
+:root {
+  --color1: #F9E4D4;
+  --color2: #FF7F3F;
+  --color3: #9C0F48;
+  --color4: #470D21;
 
+}
 html {
   font-family: 'Noto Sans JP', sans-serif;
 }
 
 body {
   margin: 0;
-  background-color: #e0e9f5;
+  background-color: var(--color1);
 }
 
 main {
