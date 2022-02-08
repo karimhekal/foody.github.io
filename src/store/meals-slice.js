@@ -26,15 +26,12 @@ export const mealsSlice = createSlice({
 export const getMeals = (category) => {
 
     return async (dispatch) => {
-        const isThereCategory = store.getState().bar.categories.find((element) => {
-            if (element.id === category) {
-                return true;
-            }
+        console.log(store.getState().meals.meals)
+        if (store.getState().meals.meals.length > 0) {
+            dispatch(mealsActions.clearMeals())
 
-        })
-        console.log(isThereCategory)
+        }
 
-        dispatch(mealsActions.clearMeals())
         const getAll = async () => {
             const mealsRef = collection(db, 'meals')
             const q = query(mealsRef, where("category", "array-contains", category))
@@ -59,12 +56,16 @@ export const getMeals = (category) => {
 
         }
         try {
+            // console.log(store.getState().bar.selectedCategory);
+            // console.log(category);
             if (initial) {
+
                 initial = false;
                 await getAll().then(() => {
                     initial = true
                 });
             }
+
         } catch (e) {
             console.log(e + 'errror with request')
         }

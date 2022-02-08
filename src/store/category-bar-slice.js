@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { db } from "../api/firebase";
 import { collection, getDocs } from 'firebase/firestore'
-import  { barActions } from "./store";
+import store, { barActions } from "./store";
 
 const initialCategoryBarState = {
     categories: [],
@@ -27,6 +27,10 @@ export const categoryBarSlice = createSlice({
 export const getCategories = () => {
     return async (dispatch) => {
         const getAll = async () => {
+           
+
+
+
             const querySnapshot = await getDocs(collection(db, "categories"));
             let selectedCategory = ''
             querySnapshot.forEach((doc) => {
@@ -34,7 +38,6 @@ export const getCategories = () => {
                 if (doc.data().selected) {
                     // console.log(doc.data().id)
                     selectedCategory = doc.data().id
-
                 }
             });
             dispatch(barActions.selectCategory(selectedCategory))

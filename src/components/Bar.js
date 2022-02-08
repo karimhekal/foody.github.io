@@ -7,19 +7,22 @@ import { getCategories } from '../store/category-bar-slice';
 import { getMeals } from '../store/meals-slice';
 const Bar = () => {
     const categories = useSelector(state => state.bar.categories)
+    const meals = useSelector(state => state.meals.meals)
     const selectedCategory = useSelector(state => state.bar.selectedCategory)
     const dispatch = useDispatch()
     useEffect(() => {
-        dispatch(getCategories())
+        if (categories.length < 1) {
+            dispatch(getCategories())
+        }
         // dispatch(getMeals(selectedCategory))
-    }, [dispatch])
-    useEffect(()=>{
+    }, [dispatch,categories.length])
+    useEffect(() => {
         dispatch(barActions.selectCategory(selectedCategory))
-    },[dispatch,selectedCategory])
+    }, [dispatch, selectedCategory])
     function selectCategoryHandler(value) {
-        dispatch(mealsActions.clearMeals())
+        // dispatch(mealsActions.clearMeals())
         dispatch(barActions.selectCategory(value))
-        dispatch(mealsActions.clearMeals())
+        // dispatch(mealsActions.clearMeals())
         dispatch(getMeals(value))
     }
 

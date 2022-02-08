@@ -17,11 +17,7 @@ const MealItem = (props) => {
         setItemAmount(newVal)
     }
     
-    useEffect(()=>{
-        if (props.quantity===0){
-            setShowMinusButton(false)
-        }
-    },[itemAmount])
+   
     return (
         <div className={classes.mealItemContainer}>
             <div className={classes.img} style={{ backgroundImage: `url(${props.image})` }}>
