@@ -5,22 +5,19 @@ import classes from './MainScreen.module.css'
 import { storage } from '../api/firebase';
 import { getDownloadURL, ref, uploadBytesResumable } from 'firebase/storage';
 import { Colors } from '../constants/colors';
-import { barActions, UIActions } from '../store/store';
+import { categoriesActions } from '../store/store';
 import { getMeals } from '../store/meals-slice';
 const MainScreen = () => {
-    const selectedCategory = useSelector(state => state.bar.selectedCategory)
+   
     const isLoading = useSelector(state => state.ui.isLoading)
-    const dispatch = useDispatch()
+  
     let content;
-    const meals = useSelector(state => state.meals.meals)
+  
+    const shownMeals = useSelector(state => state.meals.shownMeals)
+  
     let resultToReturn = true;
-    resultToReturn = meals.map((element) => { return element })
-
-    useEffect(() => {
-        dispatch(getMeals(selectedCategory))
-        dispatch(barActions.selectCategory(selectedCategory))
-    }, [selectedCategory, barActions.selectCategory, dispatch, getMeals])
-
+  
+    resultToReturn = shownMeals.map((element) => { return element })
 
     if (resultToReturn.length > 0) {
         content = resultToReturn.map((element, index) =>
@@ -61,7 +58,7 @@ const MainScreen = () => {
             }))
     }
     return (
-        <div className={classes.listContainer} style={{ backgroundColor: Colors.color1 }}>
+        <div className={classes.listContainer} style={{ minHeight:'200px' ,backgroundColor: Colors.color1 }}>
             <div className={classes.list}>
                 {/* <input type={'file'} onChange={onInputChange} />
                 <h1>Uplaoded {progress}%</h1> */}

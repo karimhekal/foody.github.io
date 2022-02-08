@@ -1,7 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 const initialUIState = {
     mainScreenMsg: '',
-    isLoading: true
+    isLoading: true,
+    selectedCategory: '',
 }
 export const UISlice = createSlice({
     name: 'uiSlice',
@@ -12,6 +13,9 @@ export const UISlice = createSlice({
         },
         setIsLoading(state, action) {
             state.isLoading = action.payload
+        },
+        selectCategory(state, action) {
+            state.selectedCategory = action.payload
         }
     }
 })

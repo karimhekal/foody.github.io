@@ -7,7 +7,7 @@ const CartModal = () => {
     const [show, setShow] = useState(true);
 const history = useHistory();
     function directToMain(){
-        history.replace("/Main");
+        // history.replace("/Main");
         setShow(false);
     }
     return (

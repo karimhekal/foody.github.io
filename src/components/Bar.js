@@ -2,28 +2,17 @@ import classes from './Bar.module.css'
 import React, { useEffect } from 'react'
 import BarCategoryButton from './BarCategoryButton';
 import { useDispatch, useSelector } from 'react-redux';
-import { barActions, mealsActions } from '../store/store';
-import { getCategories } from '../store/category-bar-slice';
-import { getMeals } from '../store/meals-slice';
+import { getCategories, selectCategory } from '../store/categories-slice';
 const Bar = () => {
-    const categories = useSelector(state => state.bar.categories)
-    const meals = useSelector(state => state.meals.meals)
-    const selectedCategory = useSelector(state => state.bar.selectedCategory)
+    const categories = useSelector(state => state.categories.categories)
     const dispatch = useDispatch()
+
     useEffect(() => {
-        if (categories.length < 1) {
-            dispatch(getCategories())
-        }
-        // dispatch(getMeals(selectedCategory))
-    }, [dispatch,categories.length])
-    useEffect(() => {
-        dispatch(barActions.selectCategory(selectedCategory))
-    }, [dispatch, selectedCategory])
+        dispatch(getCategories())
+    }, [dispatch])
+
     function selectCategoryHandler(value) {
-        // dispatch(mealsActions.clearMeals())
-        dispatch(barActions.selectCategory(value))
-        // dispatch(mealsActions.clearMeals())
-        dispatch(getMeals(value))
+        dispatch(selectCategory(value))
     }
 
     return (

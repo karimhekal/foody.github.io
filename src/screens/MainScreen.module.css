@@ -2,14 +2,15 @@
     display: grid;
     grid-template-columns: auto auto auto;
     flex-direction: column;
-    background-color:rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.089);
     border-radius: 20px;
     padding: 10px;
     align-items: center;
     flex: auto;
-    margin: 20px;
+    margin: 15px;
+    height: auto;
     justify-content: space-around;
-    border-width: 0.5px;
+    border-width: 0.2px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
@@ -18,10 +19,10 @@
         grid-template-columns: none;
         width: 90%;
         display: flex;
-
-
     }
 }
+
+
 
 @media (max-width:1040px) and (min-width:741px) {
     .list {
