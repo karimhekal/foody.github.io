@@ -17,17 +17,12 @@ export const mealsSlice = createSlice({
     reducers: {
         addMeal(state, action) {
             state.meals = [...state.meals, action.payload]
-            // console.log(action.payload)
-            // console.log('-------------------')
-            // console.log(state.meals)
         },
         clearShownMeals(state) {
             state.shownMeals = []
         },
         setShownMeals(state, action) {
-            // state.shownMeals = []
             state.shownMeals = state.meals.filter((element) => {
-                // console.log(element.name)
                 if (element.category.includes(action.payload)) {
                     return element;
                 }
@@ -35,8 +30,6 @@ export const mealsSlice = createSlice({
                     return false
                 }
             })
-
-            // console.log(state.meals)
         }
     }
 });
@@ -73,43 +66,31 @@ export const getMeals = (category) => {
                 initial = false;
                 store.getState().categories.categories.map((element) => {
                     if (element.id === category) {
-                        console.log('=========')
                         if (element.saved) {
-                            console.log(element.id + ' : saved');
                             isCategorySaved = true;
                             return true;
                         }
                         else {
-                            console.log(element.id + ' : not saved');
                             isCategorySaved = false;
                             return false
                         }
 
                     }
                 })
-                // console.log(isCategorySaved);
-
                 if (isCategorySaved) {
                     dispatch(mealsActions.setShownMeals(category))
-                    console.log('its saved')
-                    console.log(store.getState().meals.meals)
-
                 }
                 else {
-                    console.log('its nottt saved')
-
                     await getAll().then(() => {
                         dispatch(mealsActions.setShownMeals(category))
                         initial = true
                         isCategorySaved = false;
                     });
-                    // console.log('bdaaaaaaaany')
-
                 }
             }
 
         } catch (e) {
-            console.log(e + 'errror with request')
+            console.log(e + 'error with request')
         }
 
     }
